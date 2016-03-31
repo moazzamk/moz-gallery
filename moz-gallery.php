@@ -30,6 +30,7 @@ function moz_gallery_init()
 function moz_gallery_menu()
 {
     add_menu_page('Moz Gallery', 'Moz Gallery', 'manage_options', 'moz-gallery', 'moz_gallery_admin_page');
+//    add_submenu_page('moz-gallery', 'Add New', 'Add New', 'manage_optoins', 'moz-gallery-add-new'. 'moz_gallery_add_image');
 }
 
 function moz_gallery_admin_page()
@@ -65,6 +66,13 @@ function moz_gallery_add_image()
 
 }
 
+function moz_gallery_list_images()
+{
+    global $container;
+
+    $controller = new \MozGallery\Controller\Admin($container->get('TableFactory')->get('MozGallery'));
+    $controller->listImages();
+}
 
 function moz_gallery_shortcodes()
 {

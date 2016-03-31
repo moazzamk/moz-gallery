@@ -35,4 +35,10 @@ class MozGallery
         $this->db->insert($this->db->prefix . $this->table, $data);
         return $this->db->insert_id;
     }
+
+    public function getAll()
+    {
+        $table = $this->db->prefix . $this->table;
+        return $this->db->get_results("SELECt * FROM $table ORDER BY id DESC");
+    }
 }
