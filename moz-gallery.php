@@ -25,12 +25,20 @@ function moz_gallery_init()
     $container->set('TableFactory', function ($c) {
         return new \MozGallery\Service\TableFactory($c->get('db'));
     });
+
+    $container->set('AdminController', function ($c) {
+        return new \MozGallery\Controller\Admin($c->get('TableFactory')->get('MozGallery'));
+    });
+
+    $container->set('GalleryController', function ($c) {
+        return new \MozGallery\Controller\Gallery($c->get('TableFactory')->get('MozGallery'));
+    });
 }
 
 function moz_gallery_menu()
 {
-    add_menu_page('Moz Gallery', 'Moz Gallery', 'manage_options', 'moz-gallery', 'moz_gallery_admin_page');
-//    add_submenu_page('moz-gallery', 'Add New', 'Add New', 'manage_optoins', 'moz-gallery-add-new'. 'moz_gallery_add_image');
+    add_menu_page('Moz Gallery', 'Moz Gallery', 'manage_options', 'moz-gallery', 'moz_gallery_list_images');
+    add_submenu_page('moz-gallery', 'Add New', 'Add New', 'manage_options', 'moz-gallery-add-new', 'moz_gallery_add_edit_form');
 }
 
 function moz_gallery_admin_page()
@@ -45,8 +53,7 @@ function moz_gallery_add_edit_form()
 {
     global $container;
 
-    $controller = new \MozGallery\Controller\Admin($container->get('TableFactory')->get('MozGallery'));
-    $controller->addForm();
+    $container->get('AdminController')->addForm();
 }
 
 /**
@@ -56,27 +63,35 @@ function moz_gallery_add_image()
 {
     global $container;
 
-    $controller = new \MozGallery\Controller\Admin($container->get('TableFactory')->get('MozGallery'));
+    $controller = $container->get('AdminController');
     if (empty($_REQUEST['id'])) {
         $controller->add($_REQUEST);
+        $controller->listImages();
     }
     else {
         $controller->update($_REQUEST);
     }
-
 }
 
 function moz_gallery_list_images()
 {
     global $container;
 
-    $controller = new \MozGallery\Controller\Admin($container->get('TableFactory')->get('MozGallery'));
-    $controller->listImages();
+    $container->get('AdminController')->listImages();
 }
 
-function moz_gallery_shortcodes()
+function moz_gallery_show_gallery()
 {
+    global $container;
+    
+    $container->get('GalleryController')->listImages();
+}
 
+function moz_gallery_show_image()
+{
+    global $container;
+
+    $container->get('GalleryController')->get();
 }
 
 
@@ -85,4 +100,6 @@ register_activation_hook( __FILE__, 'moz_gallery_install' );
 add_action('init', 'moz_gallery_init');
 add_action('admin_menu', 'moz_gallery_menu');
 add_action('admin_post_moz_gallery_add_image', 'moz_gallery_add_image');
+add_shortcode('moz-gallery', 'moz_gallery_show_gallery');
+
 

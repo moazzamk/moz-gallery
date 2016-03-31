@@ -7,12 +7,12 @@ use MozGallery\Table\MozGallery;
 class Admin
 {
     /** @var  MozGallery */
-    private $mozGalleryTable;
+    private $table;
 
     
     public function __construct(MozGallery $mozGalleryTable)
     {
-        $this->mozGalleryTable = $mozGalleryTable;
+        $this->table = $mozGalleryTable;
     }
 
     /**
@@ -37,12 +37,16 @@ class Admin
             'description' => empty($data['description']) ? '' : $data['description'],
         ];
 
-        $this->mozGalleryTable->insert($insertData);
+        $this->table->insert($insertData);
     }
 
+    /**
+     * List images
+     */
     public function listImages()
     {
-        $this->mozGalleryTable->getAll();
+        $data = $this->table->getAll();
+        require_once __DIR__ . '/../views/list.php';
     }
 
     /**

@@ -39,6 +39,6 @@ class MozGallery
     public function getAll()
     {
         $table = $this->db->prefix . $this->table;
-        return $this->db->get_results("SELECt * FROM $table ORDER BY id DESC");
+        return $this->db->get_results("SELECT * FROM $table ORDER BY id DESC");
     }
 }
