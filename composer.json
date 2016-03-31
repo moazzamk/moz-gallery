@@ -1,0 +1,14 @@
+{
+  "config": {
+    "bin-dir": "bin"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MozGallery\\": "./"
+    }
+  }
+
+}
