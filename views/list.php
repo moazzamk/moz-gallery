@@ -1,10 +1,11 @@
 <style type="text/css">
     .moz-gallery-thumbnail {
-        width: 200px;
-        height: 200px;
+        width: 100px;
+        height: 100px;
     }
 </style>
-<a href="" class="page-title-action">Add new</a>
+<a href="admin.php?page=moz-gallery-add-new" class="page-title-action">Add new</a>
+
 <table>
     <tr>
         <th>Title</th>
@@ -15,10 +16,10 @@
 
     <?php foreach ($data as $row): ?>
         <tr>
-            <th><?= $row->title; ?></th>
-            <th><img src="<?= $row->image; ?>" class="moz-gallery-thumbnail"/></th>
-            <th><img src="<?= $row->thumbnail; ?>" class="moz-gallery-thumbnail"/></th>
-            <th><?= $row->description; ?></th>
+            <td><?= $row->title; ?></td>
+            <td><img src="<?= $row->image; ?>" class="moz-gallery-thumbnail"/></td>
+            <td><img src="<?= $row->thumbnail; ?>" class="moz-gallery-thumbnail"/></td>
+            <td><?= $row->description; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>

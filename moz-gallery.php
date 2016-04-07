@@ -65,11 +65,14 @@ function moz_gallery_add_image()
 
     $controller = $container->get('AdminController');
     if (empty($_REQUEST['id'])) {
-        $controller->add($_REQUEST);
-        $controller->listImages();
+        $success = $controller->add($_REQUEST);
     }
     else {
-        $controller->update($_REQUEST);
+        $success = $controller->update($_REQUEST);
+    }
+
+    if ($success) {
+        wp_redirect(admin_url('admin.php?page=moz-gallery'));
     }
 }
 

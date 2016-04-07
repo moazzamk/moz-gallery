@@ -9,6 +9,8 @@
     }
     .moz-gallery-list-item-container {
         float: left;
+        margin-right: 10px;
+        margin-bottom: 10px;
     }
     .moz-gallery-list-item-image-container {
         width: 200px;

@@ -37,7 +37,7 @@ class Admin
             'description' => empty($data['description']) ? '' : $data['description'],
         ];
 
-        $this->table->insert($insertData);
+        return $this->table->insert($insertData);
     }
 
     /**
